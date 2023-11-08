@@ -1,1 +1,71 @@
-<div>{{cotacao}}</div>
+<!DOCTYPE html>
+ {% load static %} 
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- Custom styles for this template -->
+    <title>Inoa Invest</title>
+     <link rel="stylesheet" href="{% static 'css/style.css' %}" /> 
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">Inoa Invest</a>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{% url 'monitora' %}"
+                  >Ativos escolhidos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'cotacao' %}">Cotação dos ativos escolhidos</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="pd-th mg-th">
+      <div acton="update" >
+        <table class="table table-hover shadow p-3 mb-5 bg-white">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Ticket</th>
+              <th scope="col">Open</th>
+              <th scope="col">High</th>
+              <th scope="col">Low</th>
+              <th scope="col">Close</th>
+              <th scope="col">Volume</th>
+            </tr>
+          </thead>
+          {% for item in cotacao %}
+          <tbody id="minha-tabela">
+            <tr id="tickets">
+              <th scope="row">{{item.id}}</th>
+              <td>{{item.item}}</td>
+              <td>{{item.open}}</td>
+              <td>{{item.high}}</td>
+              <td>{{item.low}}</td>
+              <td>{{item.close}}</td>
+              <td>{{item.volume}}</td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+      </div>
+  </body>
+</html>

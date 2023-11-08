@@ -15,59 +15,40 @@
     />
     <!-- Custom styles for this template -->
     <title>Inoa Invest</title>
-     <link rel="stylesheet" href="{% static 'css/styles.css' %}" /> 
+     <link rel="stylesheet" href="{% static 'css/style.css' %}" /> 
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand">Inoa Invest</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarText"
-          aria-controls="navbarText"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-       
+        <div class="container-fluid">
+          <a class="navbar-brand">Inoa Invest</a>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{% url 'monitora' %}"
+                  >Ativos escolhidos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'cotacao' %}">Cotação dos ativos escolhidos</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-    {% comment %} <form method="post">
-        {% csrf_token %}
-        <input type="text" name="meu_campo" placeholder="Digite um item">
-        <button type="submit">Adicionar</button>
-      </form>
-      <div>{{meu}}</div>
-        <ul>
-        {% for item in meus_ativos %}
-            <li>{{ item.id }}</li>
-            <li>{{ item.nome }}</li>
-        {% endfor %}
-      </ul>   {% endcomment %}
-
-
-      <form
-      class="d-flex input_form"
-      method="post"
-    >
-      {% csrf_token %}
-      <input type="text" name="meu_campo" placeholder="Adicione seu ativo...">
-      <button  class="btn btn-outline-success" type="submit">Adicionar</button>
-    </form>
+      </nav>
+    <section class="templateHome">
     <div class="pd-th mg-th">
-      <form acton="update"  method="get">
-        {% csrf_token %}
+      <div acton="update"  method="get">      
         <table class="table table-hover shadow p-3 mb-5 bg-white">
           <thead>
             <tr>
-              <th scope="col"></th>
+              <th scope="col">Id</th>
               <th scope="col">Ticket</th>
-              <th class="pd-th"></th>
+              <th scope="col">Limite superior</th>
+              <th scope="col">LImite Inferior</th>
+              <th scope="col">Frequencia</th>
             </tr>
           </thead>
           {% for item in meus_ativos %}
@@ -75,23 +56,17 @@
             <tr id="tickets">
               <th scope="row">{{item.id}}</th>
               <td>{{item.nome}}</td>
-              <td>
-                <button
-                  type="submit"
-                  name="{{ item.id }}"
-                  value="{{ item.id }}"
-                  class="btn btn-outline-success"
-                >
-                 Remover
-                </button>
-              </td>
+              <td>{{item.upper_limit}}</td>
+              <td>{{item.lower_limit}}</td>
+              <td>{{item.frequency}}</td>
             </tr>
           </tbody>
           {% endfor %}
         </table>
-      </form>
+      </div>
       <div>{{novo}}</div>
-  </body>
+  <section>
+    </body>
 </html>
 
 

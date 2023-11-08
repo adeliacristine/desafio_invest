@@ -27,7 +27,6 @@ class QuotedPrice(models.Model):
     volume = models.DecimalField(default=0, max_digits=20, decimal_places=6)
     dividends = models.DecimalField(default=0, max_digits=20, decimal_places=6)
     stock_splits = models.DecimalField(default=0, max_digits=20, decimal_places=6)
-    # capital_gains = models.DecimalField(default=0, max_digits=20, decimal_places=6)
         
     created_at = models.DateTimeField(auto_now=True) #hora que foi capturado
 

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -103,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-br"
 
 TIME_ZONE = "America/Sao_Paulo"
 
@@ -127,9 +128,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" ##para mostrar o email no console
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  ##para enviar email de verdade
-DEFAULT_FROM_EMAIL = "inoaInvestbydelly@inoa.com"
-EMAIL_HOST_USER = config('EMAIL_HOSTE_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS=config('EMAIL_USE_TLS')
-EMAIL_PORT= config('EMAIL_PORT')
-EMAIL_HOST= config('EMAIL_HOST')
+EMAIL_HOST_USER='adeliacristinecs@gmail.com'
+EMAIL_HOST_PASSWORD= 'olem hrgo mtyu epnz'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_PORT='465'
+EMAIL_HOST='smtp.gmail.com'

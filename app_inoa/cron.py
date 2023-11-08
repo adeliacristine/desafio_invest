@@ -27,23 +27,12 @@ class MyCronJob(CronJobBase):
                 close = data['Close'][0],
                 volume = float(data['Volume'][0]),
                 dividends = float(data['Dividends'][0]),
-                stock_splits = float(data['Stock Splits'][0]),
-                #capital_gains = float(data['Capital Gains'][0])
+                stock_splits = float(data['Stock Splits'][0])
             )
             quoted_price.save()
 
-            quoted_price.close < item.lower_limit
-            send_mail("Assunto", "Alerta de negocioação, venda",'inoainvest@inoa.com.br', ['adeliacristinecs@gmail.com'])
-            email = ('Olá, to no e-mail')
+            if quoted_price.close < item.lower_limit:
+                send_mail("Assunto", "Alerta de negocioação! Olá, Seu ativo atingiu um valor menor que o limite inferior do túnel de preço, sugerimos assim que é bom momento para COMPRA.",'inoainvest@inoa.com.br', ['dellycris.ufrrj@gmail.com'])
 
-            quoted_price.close < item.upper_limit
-            send_mail("Assunto", "Alerta de negocioação, compra",'inoainvest@inoa.com.br', ['adeliacristinecs@gmail.com'])
-            email = ('Olá, to no e-mail')
-        
-            
-              olem hrgo mtyu epnz
-
-
- 
-
-    
+            if quoted_price.close < item.upper_limit:
+                send_mail("Assunto", "Alerta de negocioação! Olá, Seu ativo atingiu um valor maior que o limite superior do túnel de preço, sugerimos assim que é bom momento para VENDA.",'inoainvest@inoa.com.br', ['dellycris.ufrrj@gmail.com'])
