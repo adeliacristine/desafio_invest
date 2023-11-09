@@ -28,7 +28,7 @@
                   class="nav-link"
                   aria-current="page"
                   href="{% url "get_ativos" %}"
-                  >Cadastro </a
+                  >Cadastro</a
                 >
               </li>
               <li class="nav-item">
@@ -46,48 +46,15 @@
           </div>
         </div>
       </nav>
-    <section class="templateHome">
-    <div class="pd-th mg-th">
-      <div acton="update"  method="get">      
-        <table class="table table-hover shadow p-3 mb-5 bg-white">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Ticket</th>
-              <th scope="col">Limite superior</th>
-              <th scope="col">LImite Inferior</th>
-              <th scope="col">Frequencia</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          {% for item in meus_ativos %}
-          <tbody id="minha-tabela">
-            <tr id="tickets">
-              <th scope="row">{{item.id}}</th>
-              <td>{{item.nome}}</td>
-              <td>{{item.upper_limit}}</td>
-              <td>{{item.lower_limit}}</td>
-              <td>{{item.frequency}}</td>
-              <td>
-                <form method="post" action="{% url 'remover_item' item.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-outline-danger">Remover</button>
-                </form>
-                </td>
-                <td>
-                 <form method="post" action="{% url 'adicionar_item' item.nome%}">
-                    {% csrf_token %}
-                <button type="submit" class="btn btn-outline-success">Monitorar</button></td>
-              </form> 
-            </tr>
-          </tbody>
-          {% endfor %}
-        </table>
+      {% if sucesso %}
+      <div  class="alert alert-success" role="alert">
+        {{mensagem}}
       </div>
-  <section>
+      {% endif %}
+      {% if not sucesso %}
+      <div class="alert alert-danger" role="alert">
+          {{ mensagem }}
+      </div>
+    {% endif %}
     </body>
-</html>
-
-
-
+    </html>

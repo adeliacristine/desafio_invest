@@ -25,14 +25,22 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a
-                  class="nav-link active"
+                  class="nav-link"
                   aria-current="page"
-                  href="{% url 'monitora' %}"
-                  >Ativos escolhidos</a
+                  href="{% url "get_ativos" %}"
+                  >Cadastro</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'cotacao' %}">Cotação dos ativos escolhidos</a>
+                <a
+                  class="nav-link"
+                  aria-current="page"
+                  href="{% url "monitora" %}"
+                  >Meus ativos </a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'cotacao' %}">Cotação dos ativos</a>
               </li>
             </ul>
           </div>
@@ -50,6 +58,7 @@
               <th scope="col">Low</th>
               <th scope="col">Close</th>
               <th scope="col">Volume</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           {% for item in cotacao %}
@@ -62,6 +71,12 @@
               <td>{{item.low}}</td>
               <td>{{item.close}}</td>
               <td>{{item.volume}}</td>
+              <td>
+                <form method="post" action="{% url 'remover_monitorado' item.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-danger">Remover</button>
+                </form>
+              </td>              
             </tr>
           </tbody>
           {% endfor %}

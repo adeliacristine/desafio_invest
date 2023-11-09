@@ -14,7 +14,7 @@ class MyCronJob(CronJobBase):
         tickers = yf.Tickers(string)
 
         for item in itens_monitorado:
-            data = tickers.tickers[item.nome].history(period="1d")
+            data = tickers.tickers[item.nome].history(period="1m")
     
             if not item.is_expired():
                 continue            
@@ -32,7 +32,17 @@ class MyCronJob(CronJobBase):
             quoted_price.save()
 
             if quoted_price.close < item.lower_limit:
-                send_mail("Assunto", "Alerta de negocioação! Olá, Seu ativo atingiu um valor menor que o limite inferior do túnel de preço, sugerimos assim que é bom momento para COMPRA.",'inoainvest@inoa.com.br', ['dellycris.ufrrj@gmail.com'])
+                subject = "Alerta de negociação! {}".format(quoted_price.item)
+                message = f"Olá, Seu ativo {quoted_price.item} atingiu um valor menor que o limite inferior do túnel de preço. Sugerimos que é um bom momento para COMPRA."
+                from_email = 'inoainvest@inoa.com.br'
+                recipient_list = ['dellycris.ufrrj@gmail.com']
+    
+                send_mail(subject, message, from_email, recipient_list)
 
             if quoted_price.close < item.upper_limit:
-                send_mail("Assunto", "Alerta de negocioação! Olá, Seu ativo atingiu um valor maior que o limite superior do túnel de preço, sugerimos assim que é bom momento para VENDA.",'inoainvest@inoa.com.br', ['dellycris.ufrrj@gmail.com'])
+                subject = "Alerta de negociação! {}".format(quoted_price.item)
+                
+                message = f"Olá, Seu ativo {quoted_price.item} atingiu um valor maior que o limite superior do túnel de preço, sugerimos assim que é bom momento para VENDA."
+                from_email = 'inoainvest@inoa.com.br'
+                recipient_list = ['dellycris.ufrrj@gmail.com']
+            

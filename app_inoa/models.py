@@ -4,18 +4,21 @@ from django.utils import timezone
 
 
 class Item(models.Model):
-    nome = models.TextField(max_length=100, null=True)
-    upper_limit = models.DecimalField(default=0, max_digits=15, decimal_places=2)
-    lower_limit = models.DecimalField(default=0, max_digits=15, decimal_places=2)
+    nome = models.TextField(max_length=100)
+    upper_limit = models.FloatField(default=0.0)
+    lower_limit = models.FloatField(default=0.0)
     frequency = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.nome
     
+    
     def is_expired(self):
         last_quoted_price = QuotedPrice.objects.filter(item=self).latest('id')
-        return (last_quoted_price.created_at + datetime.timedelta(minutes=self.frequency) < timezone.now())                
+        return (last_quoted_price.created_at + datetime.timedelta(minutes=self.frequency) < timezone.now())
+
+            
     
 class QuotedPrice(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -28,7 +31,8 @@ class QuotedPrice(models.Model):
     dividends = models.DecimalField(default=0, max_digits=20, decimal_places=6)
     stock_splits = models.DecimalField(default=0, max_digits=20, decimal_places=6)
         
-    created_at = models.DateTimeField(auto_now=True) #hora que foi capturado
+    created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.item.nome
+    
