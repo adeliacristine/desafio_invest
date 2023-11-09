@@ -3,11 +3,18 @@
     margin: 20px;
 }
 .input_form{
-    margin:16px;
+    margin: 0 0 1rem 1rem;
     }
 .mg-l{
     margin-left: 10px;
     }
 .pd-th{
-    padding: 0 1rem 
+    padding: 0 1rem; 
 }
+.mg-th{
+    margin:1rem;
+}
+.mg-table{
+    margin:2rem;
+}
+

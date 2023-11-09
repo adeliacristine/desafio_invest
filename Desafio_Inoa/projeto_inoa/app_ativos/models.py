@@ -1,22 +1,13 @@
 from django.db import models
 
+class Acoes(models.Model):
+    nome = models.TextField(max_length=100)
+    
 class Meus_ativos(models.Model):
     ticket = models.TextField(max_length=255)
-    valor_venda = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    valor_compra = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    valor_fechamento = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    # idade = models.IntegerField(max_length=10)
-
-
-# class Meus_ativos(models.Model):
-#     id = models.UniqueConstraint()
-#     ticket = models.CharField(max_length=100)
-#     valor_venda = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-#     valor_compra = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-#     valor_fechamento = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-
-
-
+    venda = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    compra = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    fechamento = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
 
 

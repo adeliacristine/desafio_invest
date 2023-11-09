@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-{% load static %}
-<script src="{% static 'js/seu_arquivo.js' %}"></script>
+ {% load static %}
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -35,41 +35,60 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="{% url 'meus_ativos' %}">Meus ativos</a>
-              </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="container">
-      <table>
-        <tr>
-          <th style="padding: 0 1rem">Ticket</th>
-          <th style="padding: 0 1rem">Compra</th>
-          <th style="padding: 0 1rem">Venda</th>
-          <th style="padding: 0 1rem">Fechamento</th>
-        </tr>
-        {% for ticket in tickets %}
-        <tr>
-          <td>{{ticket.ticket}}</td>
-          <td>{{ticket.compra}}</td>
-          <td>{{ticket.venda}}</td>
-          <td>{{ticket.fechamento}}</td>
-          <td>
-            <button type="submit" class="btn btn-primary mb-3">remover</button>
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
+    <h3 class="templateHome">Minhas ações</h3>
+    <div class="pd-th mg-th"> 
+       <form acton="update"> 
+         <table class="table table-hover shadow p-3 mb-5 bg-white">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Ticket</th>
+              <th class="pd-th"></th>
+            </tr>
+          </thead>
+          {% for item in itens %}
+          <tbody id="minha-tabela">
+            <tr id="tickets">
+              <th scope="row">{{item.id}}</th>
+              <td>{{item.nome}}</td>
+              <td>
+                <button type="button" class="btn btn-outline-danger">
+                  Remover
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          {% endfor %}
+          
+        </table> 
+        disparar e-mail qnd o valor for a baixo ou acima de tunel
+       </form> 
 
-      <div>disparar e-mail qnd o valor for a baixo ou acima de tunel</div>
+  
+   {% comment %} <form method="post">
+    {% csrf_token %} 
+    <input type="text" name="meu_campo" id="meu_campo" placeholder="Digite algo">
+    <button type="submit">Enviar</button>
+</form>
+<p>{{meu}}</p> {% endcomment %}
+
+<form method="post">
+  {% csrf_token %}
+  <input type="text" name="meu_campo" placeholder="Digite um item">
+  <button type="submit">Adicionar</button>
+</form>
+<ul>
+  {% for item in itens %}
+      <li>{{ item.nome }}</li>
+  {% endfor %}
+</ul>
     </div>
 
-    <p>{{meu_campo}}</p>
+   
   </body>
 </html>

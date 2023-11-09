@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %} {% comment %}
 <script src="{% static 'js/seu_arquivo.js' %}"></script>
+{% endcomment %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -19,61 +19,113 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
   <body>
-       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Inoa Invest</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand">Inoa Invest</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'home' %}"
+                >Home</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'meus_ativos' %}">Meus ativos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'enviaemail' %}">Alertas enviados</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <section class=templateHome>
-      <h1>Ações</h1> 
-      
-      <form action="{% url 'meus_ativos' %}" class="d-flex" style="margin-bottom: 1rem;"method="post">
+    <section class="templateHome">
+      <h1>Ações</h1>
+      <div>{{acoes.columns}}</div>
+      <form
+        action="{% url 'meus_ativos' %}"
+        class="d-flex input_form"
+        method="get"
+      >
         {% csrf_token %}
         <input
-          type="search"
-          placeholder="Search"
+          type="text"
+          id="filtro"
+          placeholder="Filtrar por..."
           aria-label="Search"
-          name="meu_campo" id="meu_campo"
+          name="filtro"
+          class="mg-th"
         />
-        <button  id="input-filtro" class="mg-l btn btn-outline-success" type="submit">Search</button>
-      </form>   
-      <div class="card">
-        <div class="card-body">
-          <table>
-            <tr>
-              <th class="pd-th">Ticket</th>
-              <th class="pd-th">Compra</th>
-              <th class="pd-th">Venda</th>
-              <th class="pd-th">Fechamento</th>
-            </tr>
-            
+      </form>
+      <div class="pd-th mg-th">
+        <form acton="update">
+          <table class="table table-hover shadow p-3 mb-5 bg-white">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ticket</th>
+                <th scope="col">Compra</th>
+                <th scope="col">Venda</th>
+                <th scope="col">Fechamento</th>
+                <th class="pd-th"></th>
+              </tr>
+            </thead>
             {% for ticket in tickets %}
-            <tr>
-              <td>{{ticket.ticket}} </td>
-              <td>{{ticket.compra}}</td>
-              <td>{{ticket.venda}}</td>
-              <td>{{ticket.fechamento}}</td>
-              <td>
-                <button type="button" class="btn btn-outline-success">Adicionar</button>
-              </td>
-            </tr>
+            <tbody id="minha-tabela">
+              <tr id="tickets">
+                <th scope="row">{{ticket.index}}</th>
+                <td>{{ticket.ticket}}</td>
+                <td>{{ticket.compra}}</td>
+                <td>{{ticket.venda}}</td>
+                <td>{{ticket.fechamento}}</td>
+                <td>
+                  <button
+                    type="button"
+                    id="{{ novoIndice }}"
+                    value="adicionar"
+                    class="btn btn-outline-success"
+                  >
+                   Adicionar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
             {% endfor %}
           </table>
-        </div>
+        </form>
       </div>
     </section>
   </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  const tabela = document.getElementById("minha-tabela");
+  $(document).ready(function () {
+    $("#filtro").on("keyup", function () {
+      var valorFiltro = $(this).val().toLowerCase();
+      $("#minha-tabela tr").each(function () {
+        var textoItem = $(this).text().toLowerCase();
+        if (textoItem.includes(valorFiltro)) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    });
+  });
+</script>

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,12 +76,14 @@ WSGI_APPLICATION = "projeto_inoa.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # Tipo de banco de dados (SQLite)
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Nome do banco de dados (arquivo SQLite)
     }
 }
+
 
 
 # Password validation
@@ -112,11 +115,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "/projeto_inoa/projeto_inoa/app_ativos/static")]
-
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "/projeto_inoa/projeto_inoa/app_ativos/static")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'app_ativos/static')]
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+#Email
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" ##para mostrar o email no console
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  ##para enviar email de verdade
+# DEFAULT_FROM_EMAIL = "inoaInvestbydelly@inoa.com"
+# EMAIL_HOST_USER = config('EMAIL_HOSTE_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS=config('EMAIL_USE_TLS')
+# EMAIL_PORT= config('EMAIL_PORT')
+# EMAIL_HOST= config('EMAIL_HOST')
+
